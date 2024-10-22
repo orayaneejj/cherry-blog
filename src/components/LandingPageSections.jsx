@@ -3,6 +3,15 @@ import { useState } from "react";
 import { Linkedin } from "lucide-react";
 import { Github } from "lucide-react";
 import { Instagram } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { AlignJustify } from "lucide-react";
 export function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
@@ -21,24 +30,23 @@ export function NavBar() {
         </button>
       </div>
       <section className="hamberger-menu md:hidden">
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="flex flex-col gap-1"
-        >
-          <div className="rounded-full w-5 border border-black"></div>
-          <div className="rounded-full w-5 border border-black"></div>
-          <div className="rounded-full w-5 border border-black"></div>
-        </button>
-        {isMenuOpen && (
-          <div className="absolute top-11 right-0 bg-white border rounded-md shadow-lg p-6 space-y-4 sm:hidden w-full">
-            <button className="w-full px-4 py-2 border border-black rounded-full text-xs">
-              Log in
-            </button>
-            <button className="w-full px-4 py-2 border border-black rounded-full text-xs bg-black text-white">
-              Sign up
-            </button>
-          </div>
-        )}
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <AlignJustify />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-[100vw] mt-5 flex flex-col items-center">
+            <DropdownMenuItem>
+              <button className="w-72 py-2 border border-black rounded-full text-black font-medium">
+                Log in
+              </button>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <button className="w-72 py-2 border border-black rounded-full bg-black text-white font-medium">
+                Sign up
+              </button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </section>
     </nav>
   );
@@ -46,29 +54,31 @@ export function NavBar() {
 
 export function HeroSection() {
   return (
-    <main className="flex justify-center py-8 md:px-20 mx-auto">
-      <div className="flex flex-col md:flex-row justify-around items-center gap-6">
-        <div className="text-center md:text-right max-w-sm">
-          <h1 className="text-2xl md:text-3xl font-semibold">
-            Stay <br className="max-md:hidden" />
+    <main className="py-8 px-7 md:px-20">
+      <div className="flex flex-col lg:flex-row justify-center items-center gap-8 md:gap-6">
+        <div className="text-center lg:text-right max-w-sm">
+          <h1 className="text-3xl font-semibold">
+            Stay <br className="hidden md:inline" />
             Informed,
-            <br className="max-md:hidden" /> <br className="md:hidden" />
+            <br className="hidden md:inline" /> <br className="md:hidden" />
             Stay Inspired
           </h1>
-          <p className="mt-3 text-[#75716B]">
+          <p className="mt-4 text-[#75716B]">
             Join me in uncovering the magic of storytelling and the art of
             filmmaking.
           </p>
         </div>
 
-        <img
-          src={authorImage}
-          alt="Person with a cat"
-          className="h-[530px] object-cover rounded-lg max-w-sm"
-        />
+        <div className="max-w-sm">
+          <img
+            src={authorImage}
+            alt="Person with a cat"
+            className="object-cover rounded-lg h-[530px]"
+          />
+        </div>
 
         <div className="max-w-sm">
-          <div className="mb-2">
+          <div className="mb-4">
             <p className="text-xs text-[#75716B]">-Author</p>
             <h3 className="text-2xl font-semibold">Thompson P.</h3>
           </div>
@@ -79,8 +89,8 @@ export function HeroSection() {
               sharing insights on feline companionship and wellness.
             </p>
             <p>
-              When i’m not writing, I spends time volunteering at my local
-              animal shelter, helping cats find loving homes.
+              When I'm not writing, I spend time volunteering at my local animal
+              shelter, helping cats find loving homes.
             </p>
           </div>
         </div>
