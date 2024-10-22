@@ -48,10 +48,10 @@ function BlogCard({ image, category, title, description, author, date }) {
 }
 function ArticlesSection() {
   return (
-    <div className="py-10 px-4 md:px-20">
+    <section className="py-10 px-7 md:px-20 mx-auto">
       <h3 className="mb-6 text-2xl font-semibold">Latest articles</h3>
       <div className="flex bg-[#EFEEEB] p-3 justify-between rounded-xl items-center">
-        <div className="buttons hidden sm:flex text-[#75716B]">
+        <div className="buttons hidden md:flex text-[#75716B]">
           <button className="px-4 py-3 rounded-lg bg-[#DAD6D1]  active:text-[#43403B] hover:text-[#43403B] transition-colors duration-400 ">
             Highlight
           </button>
@@ -65,12 +65,12 @@ function ArticlesSection() {
             General
           </button>
         </div>
-        <div className="w-full sm:w-[30%] flex flex-col gap-2">
+        <div className="w-full md:w-[30%] flex flex-col gap-2">
           <div className="relative">
             <Input placeholder="Search" className="w-max-sm py-5 bg-white" />
             <Search className="absolute top-2 right-3 w-4" />
           </div>
-          <div className="sm:hidden">
+          <div className="md:hidden flex flex-col gap-2">
             <p className="text-[#75716B] font-medium">Category</p>
             <Select>
               <SelectTrigger className="py-5 text-[#75716B] bg-white">
@@ -136,7 +136,10 @@ function ArticlesSection() {
           date={blogPosts[5].date}
         />
       </article>
-    </div>
+      <div className="view-more flex justify-center mt-20 mb-12">
+        <a className="hover:underline font-semibold">View More</a>
+      </div>
+    </section>
   );
 }
 

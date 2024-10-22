@@ -6,7 +6,7 @@ import { Instagram } from "lucide-react";
 export function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <nav className="flex justify-between items-center py-3 px-4 md:px-20 border-b">
+    <nav className="flex justify-between items-center py-5 md:py-3 px-7 md:px-20 border-b">
       <a href="" className="text-xl">
         <span className="font-medium">CR</span>
         <span className="text-[#ff0000] font-medium">.</span>
@@ -46,7 +46,7 @@ export function NavBar() {
 
 export function HeroSection() {
   return (
-    <main className="flex justify-center py-8 px-20">
+    <main className="flex justify-center py-8 md:px-20 mx-auto">
       <div className="flex flex-col md:flex-row justify-around items-center gap-6">
         <div className="text-center md:text-right max-w-sm">
           <h1 className="text-2xl md:text-3xl font-semibold">
@@ -90,15 +90,15 @@ export function HeroSection() {
 }
 export function Footer() {
   return (
-    <footer className="py-10 px-4 sm:px-8 md:px-20 bg-[#EFEEEB]">
-      <div className="flex flex-col sm:justify-between sm:flex-row items-center">
+    <footer className="py-11 px-4 md:px-20 bg-[#EFEEEB]">
+      <div className="flex flex-col md:justify-between md:flex-row items-center">
         <div className="flex items-center gap-3">
           <p className="mr-3">Get in touch</p>
           <Linkedin />
           <Github />
           <Instagram />
         </div>
-        <a href="" className="mt-4 sm:mt-0 hover:underline">
+        <a href="" className="mt-4 md:mt-0 hover:underline">
           Home Page
         </a>
       </div>
