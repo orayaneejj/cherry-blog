@@ -12,7 +12,7 @@ export function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <nav className="flex justify-between items-center py-5 md:py-3 px-7 md:px-20 border-b">
-      <a href="" className="text-xl">
+      <a href="/" className="text-xl">
         <span className="font-medium">CR</span>
         <span className="text-[#ff0000] font-medium">.</span>
       </a>
