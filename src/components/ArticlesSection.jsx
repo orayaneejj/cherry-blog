@@ -7,52 +7,33 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { blogPosts } from "../data/blogPosts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { BlogCard } from "./BlogCard";
 
-function BlogCard({ image, category, title, description, author, date }) {
-  return (
-    <div className="flex flex-col gap-4">
-      <a href="#" className="relative h-[212px] sm:h-[360px]">
-        <img
-          className="w-full h-full object-cover rounded-md"
-          src={image}
-          alt={title}
-        />
-      </a>
-      <div className="flex flex-col">
-        <div className="flex">
-          <span className="bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-green-600 mb-2">
-            {category}
-          </span>
-        </div>
-        <a href="#">
-          <h2 className="text-start font-bold text-xl mb-2 line-clamp-2 hover:underline">
-            {title}
-          </h2>
-        </a>
-        <p className="text-muted-foreground text-sm mb-4 flex-grow line-clamp-3">
-          {description}
-        </p>
-        <div className="flex items-center text-sm">
-          <img
-            className="w-8 h-8 rounded-full mr-2"
-            src="https://res.cloudinary.com/dcbpjtd1r/image/upload/v1728449784/my-blog-post/xgfy0xnvyemkklcqodkg.jpg"
-            alt={author}
-          />
-          <span>{author}</span>
-          <span className="mx-2 text-gray-300">|</span>
-          <span>{date}</span>
-        </div>
-      </div>
-    </div>
-  );
-}
 function ArticlesSection() {
   const categories = ["Highlight", "Cat", "Inspiration", "General"];
   const [activeCategory, setActiveCategory] = useState("Highlight");
+  const [postList, setPostList] = useState([]);
 
-  const handleCategotyClicked = (category) => {
+  const getPostList = async () => {
+    try {
+      const categoryQuery =
+        activeCategory !== "Highlight" ? `?category=${activeCategory}` : "";
+      const results = await axios.get(
+        `https://blog-post-project-api.vercel.app/posts?${categoryQuery}`
+      );
+      setPostList(results.data.posts);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getPostList();
+  }, [activeCategory]);
+
+  const handleCategoryClicked = (category) => {
     setActiveCategory(category);
   };
 
@@ -63,7 +44,7 @@ function ArticlesSection() {
         <div className="hidden lg:flex space-x-2">
           {categories.map((category) => (
             <button
-              onClick={() => handleCategotyClicked(category)}
+              onClick={() => handleCategoryClicked(category)}
               key={category}
               className={`px-4 py-3 transition-colors rounded-sm text-sm text-muted-foreground font-medium ${
                 activeCategory === category
@@ -101,10 +82,11 @@ function ArticlesSection() {
           </div>
         </div>
       </div>
-      <article className="grid lg:grid-cols-2 grid-rows-3 pt-10 gap-5">
-        {blogPosts.map((post, index) => (
+
+      <article className="grid lg:grid-cols-2 pt-10 gap-5">
+        {postList.map((post) => (
           <BlogCard
-            key={index}
+            key={post.id}
             image={post.image}
             category={post.category}
             title={post.title}
@@ -114,8 +96,9 @@ function ArticlesSection() {
           />
         ))}
       </article>
+
       <div className="view-more flex justify-center mt-20 mb-12">
-        <a className="hover:underline font-semibold">View More</a>
+        <button className="hover:underline font-semibold">View More</button>
       </div>
     </section>
   );
