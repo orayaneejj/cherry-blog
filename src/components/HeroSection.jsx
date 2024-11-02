@@ -1,11 +1,11 @@
 import authorImage from "/src/assets/author-image.jpg";
 export function HeroSection() {
   return (
-    <main className="py-8 px-7 md:px-20">
-      <div className="flex flex-col lg:flex-row justify-center items-center gap-8 md:gap-6">
+    
+      <main className="flex flex-col lg:flex-row justify-center items-center gap-8 md:gap-6 mt-8">
         <div className="text-center lg:text-right max-w-sm">
           <h1 className="text-3xl font-semibold">
-            Stay <br className="hidden md:inline" />
+            Stay <br className="hidden lg:inline" />
             Informed,
             <br className="hidden md:inline" /> <br className="md:hidden" />
             Stay Inspired
@@ -41,7 +41,7 @@ export function HeroSection() {
             </p>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    
   );
 }

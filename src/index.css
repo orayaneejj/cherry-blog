@@ -141,8 +141,8 @@
 
 .markdown img {
   display: block;
-  width: 100%;
-  height: auto;
+/*   width: 100%;
+  height: auto; */
   margin: 2em 0;
   border-radius: 12px;
 }

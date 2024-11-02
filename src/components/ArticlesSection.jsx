@@ -96,17 +96,18 @@ function ArticlesSection() {
   };
   const navigate = useNavigate();
   return (
-    <section className="py-10 px-7 lg:px-20">
+    <div className="w-full flex justify-center">
+    <section className="w-full max-w-7xl py-8 px-4 md:px-8">
       <h3 className="mb-6 text-2xl font-semibold">Latest articles</h3>
       <div className="flex bg-[#EFEEEB] p-3 justify-between rounded-xl items-center">
         <div className="hidden lg:flex space-x-2">
           {categories.map((category) => (
             <button
               onClick={() => {
-                setActiveCategory(category);
-                setPostList([]);
-                setPage(1);
-                setViewMore(true);
+                setActiveCategory(category)
+                setPostList([])
+                setPage(1)
+                setViewMore(true)
               }}
               key={category}
               className={`px-4 py-3 transition-colors rounded-sm text-sm text-muted-foreground font-medium ${
@@ -125,8 +126,8 @@ function ArticlesSection() {
               placeholder="Search"
               className="w-max-sm py-5 bg-white"
               onChange={(e) => {
-                setSearchInput(e.target.value);
-                setPostList([]);
+                setSearchInput(e.target.value)
+                setPostList([])
               }}
             />
             <Search className="absolute top-2 right-3 w-4" />
@@ -139,7 +140,7 @@ function ArticlesSection() {
                     key={post.id}
                     id={post.id}
                     onClick={() => {
-                      navigate(`/post/${post.id}`);
+                      navigate(`/post/${post.id}`)
                     }}
                     className="cursor-pointer px-2 py-1 hover:bg-gray-100 rounded-md"
                   >
@@ -155,10 +156,10 @@ function ArticlesSection() {
             <Select
               value={activeCategory}
               onValueChange={(value) => {
-                setActiveCategory(value);
-                setPostList([]);
-                setPage(1);
-                setViewMore(true);
+                setActiveCategory(value)
+                setPostList([])
+                setPage(1)
+                setViewMore(true)
               }}
             >
               <SelectTrigger className="py-5 text-[#75716B] bg-white">
@@ -202,6 +203,7 @@ function ArticlesSection() {
         </div>
       )}
     </section>
+  </div>
   );
 }
 
