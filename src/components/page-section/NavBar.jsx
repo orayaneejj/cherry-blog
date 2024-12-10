@@ -3,25 +3,28 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { AlignJustify } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 export function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
   return (
     <nav className="flex justify-between items-center py-5 md:py-3 px-7 md:px-20 border-b">
-      <a href="/" className="text-xl">
+      <a href="" className="text-xl" onClick={() => navigate("/")}>
         <span className="font-medium">CR</span>
         <span className="text-[#ff0000] font-medium">.</span>
       </a>
+
 
       <div className="hidden md:flex gap-2">
         <button className="px-7 py-2 border border-black rounded-full">
           Log in
         </button>
-        <button className="px-7 py-2 border border-black rounded-full bg-black text-white ">
+        <button
+          className="px-7 py-2 border border-black rounded-full bg-black text-white"
+          onClick={() => navigate("/signup")}
+        >
           Sign up
         </button>
       </div>
@@ -37,7 +40,10 @@ export function NavBar() {
               </button>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <button className="w-72 py-2 border border-black rounded-full bg-black text-white font-medium">
+              <button
+                className="w-72 py-2 border border-black rounded-full bg-black text-white font-medium"
+                onClick={() => navigate("/signup")}
+              >
                 Sign up
               </button>
             </DropdownMenuItem>
