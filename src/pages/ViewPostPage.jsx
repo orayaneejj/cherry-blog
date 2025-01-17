@@ -34,14 +34,14 @@ function ViewPostPage() {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const params = useParams();
   const shareLink = encodeURI(window.location.href);
-
+  const content = post.content.replace(/\\n/g, "\n");
   useEffect(() => {
     const getPost = async () => {
       try {
         const response = await axios.get(
-          `https://blog-post-project-api.vercel.app/posts/${params.postID}`
+          `https://blog-post-express.vercel.app/posts/${params.postId}`
         );
-        setPost(response.data);
+        setPost(response.data.data);
       } catch (error) {
         console.error("Error fetching post:", error);
       }
@@ -80,7 +80,7 @@ function ViewPostPage() {
               </h1>
               <p className="text-lg mb-6">{post.description}</p>
               <div className="markdown">
-                <ReactMarkdown>{post.content}</ReactMarkdown>
+                <ReactMarkdown>{content}</ReactMarkdown>
               </div>
             </div>
             <aside className="mt-8 lg:mt-0 sticky top-0">
@@ -219,14 +219,19 @@ function CommentSection({ setAlertDialog }) {
         >
           Send
         </button>
-      </div> 
+      </div>
       <div className="space-y-6 pt-4">
         {comments.map((comment, index) => (
           <div key={comment.id}>
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 bg-gray-200 rounded-full flex-shrink-0">
-                {/* profile */}
+              <div className="w-10 h-10 bg-gray-200 rounded-full flex-shrink-0 overflow-hidden">
+                <img
+                  src={`https://robohash.org/${Math.random()}.png`}
+                  alt="Random Profile"
+                  className="w-full h-full object-cover"
+                />
               </div>
+
               <div className="flex-1 space-y-2">
                 <div className="flex gap-2 flex-col md:flex-row md:items-center">
                   <span className="font-semibold text-lg">
@@ -251,16 +256,16 @@ function CommentSection({ setAlertDialog }) {
 
 function AuthorCard({ author }) {
   return (
-    <div className="bg-[#EFEEEB] rounded-3xl p-6 w-72">
+    <div className="bg-[#EFEEEB] rounded-3xl md:p-6 md:w-72 p-4">
       <div className="flex items-center mb-4">
         <img
           src={authorImage}
-          alt={author}
+          alt="Thompson P."
           className="w-16 h-16 rounded-full object-cover mr-4"
         />
         <div>
           <p className="text-sm text-gray-600">Author</p>
-          <h3 className="text-2xl font-bold">{author}</h3>
+          <h3 className="text-2xl font-bold">Thompson P.</h3>
         </div>
       </div>
       <div className="text-gray-600 space-y-4">
@@ -283,15 +288,15 @@ function AlertDialogState({ isOpen, setIsOpen }) {
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Create an account to continue</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            Already have an account?{" "}
+            <span className="underline text-black">Log in</span>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction>Create account</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -73,7 +73,7 @@ function ArticlesSection() {
       const categoryQuery =
         activeCategory !== "Highlight" ? `&category=${activeCategory}` : "";
       const response = await axios.get(
-        `https://blog-post-project-api.vercel.app/posts?page=${page}&limit=6${categoryQuery}&keyword=${searchInput}`
+        `https://blog-post-express.vercel.app/posts?page=${page}&limit=6${categoryQuery}&keyword=${searchInput}`
       );
       setPostList((prevPosts) => [...prevPosts, ...response.data.posts]);
       setIsLoading(false);
@@ -97,113 +97,113 @@ function ArticlesSection() {
   const navigate = useNavigate();
   return (
     <div className="w-full flex justify-center">
-    <section className="w-full max-w-7xl py-8 px-4 md:px-8">
-      <h3 className="mb-6 text-2xl font-semibold">Latest articles</h3>
-      <div className="flex bg-[#EFEEEB] p-3 justify-between rounded-xl items-center">
-        <div className="hidden lg:flex space-x-2">
-          {categories.map((category) => (
-            <button
-              onClick={() => {
-                setActiveCategory(category)
-                setPostList([])
-                setPage(1)
-                setViewMore(true)
-              }}
-              key={category}
-              className={`px-4 py-3 transition-colors rounded-sm text-sm text-muted-foreground font-medium ${
-                activeCategory === category
-                  ? "bg-[#DAD6D1] disabled"
-                  : "bg-[#EFEEEB] hover:bg-muted"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-        <div className="w-full lg:w-[30%] flex flex-col gap-2">
-          <div className="relative">
-            <Input
-              placeholder="Search"
-              className="w-max-sm py-5 bg-white"
-              onChange={(e) => {
-                setSearchInput(e.target.value)
-                setPostList([])
-              }}
-            />
-            <Search className="absolute top-2 right-3 w-4" />
+      <section className="w-full max-w-7xl py-8 px-4 md:px-8">
+        <h3 className="mb-6 text-2xl font-semibold">Latest articles</h3>
+        <div className="flex bg-[#EFEEEB] p-3 justify-between rounded-xl items-center">
+          <div className="hidden lg:flex space-x-2">
+            {categories.map((category) => (
+              <button
+                onClick={() => {
+                  setActiveCategory(category);
+                  setPostList([]);
+                  setPage(1);
+                  setViewMore(true);
+                }}
+                key={category}
+                className={`px-4 py-3 transition-colors rounded-sm text-sm text-muted-foreground font-medium ${
+                  activeCategory === category
+                    ? "bg-[#DAD6D1] disabled"
+                    : "bg-[#EFEEEB] hover:bg-muted"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
           </div>
-          {searchInput.length > 0 && (
-            <div className="bg-white absolute z-50 top-[815px] rounded-lg p-3 w-80 shadow-lg">
-              <ul>
-                {postList.map((post) => (
-                  <li
-                    key={post.id}
-                    id={post.id}
-                    onClick={() => {
-                      navigate(`/post/${post.id}`)
-                    }}
-                    className="cursor-pointer px-2 py-1 hover:bg-gray-100 rounded-md"
-                  >
-                    {post.title}
-                  </li>
-                ))}
-              </ul>
+          <div className="w-full lg:w-[30%] flex flex-col gap-2">
+            <div className="relative">
+              <Input
+                placeholder="Search"
+                className="w-max-sm py-5 bg-white"
+                onChange={(e) => {
+                  setSearchInput(e.target.value);
+                  setPostList([]);
+                }}
+              />
+              <Search className="absolute top-2 right-3 w-4" />
             </div>
-          )}
+            {searchInput.length > 0 && (
+              <div className="bg-white absolute z-50 mt-11 rounded-lg p-3 w-80 shadow-lg">
+                <ul>
+                  {postList.map((post) => (
+                    <li
+                      key={post.id}
+                      id={post.id}
+                      onClick={() => {
+                        navigate(`/post/${post.id}`);
+                      }}
+                      className="cursor-pointer px-2 py-1 hover:bg-gray-100 rounded-md"
+                    >
+                      {post.title}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-          <div className="lg:hidden flex flex-col gap-2">
-            <p className="text-[#75716B] font-medium">Category</p>
-            <Select
-              value={activeCategory}
-              onValueChange={(value) => {
-                setActiveCategory(value)
-                setPostList([])
-                setPage(1)
-                setViewMore(true)
-              }}
-            >
-              <SelectTrigger className="py-5 text-[#75716B] bg-white">
-                <SelectValue placeholder="Select Category" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((category) => (
-                  <SelectItem key={category} value={category}>
-                    {category}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="lg:hidden flex flex-col gap-2">
+              <p className="text-[#75716B] font-medium">Category</p>
+              <Select
+                value={activeCategory}
+                onValueChange={(value) => {
+                  setActiveCategory(value);
+                  setPostList([]);
+                  setPage(1);
+                  setViewMore(true);
+                }}
+              >
+                <SelectTrigger className="py-5 text-[#75716B] bg-white">
+                  <SelectValue placeholder="Select Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((category) => (
+                    <SelectItem key={category} value={category}>
+                      {category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
-      </div>
 
-      <article className="grid lg:grid-cols-2 pt-10 gap-5">
-        {postList.map((post) => (
-          <BlogCard
-            id={post.id}
-            key={post.id}
-            image={post.image}
-            category={post.category}
-            title={post.title}
-            description={post.description}
-            author={post.author}
-            date={post.date}
-          />
-        ))}
-      </article>
+        <article className="grid lg:grid-cols-2 pt-10 gap-5">
+          {postList.map((post) => (
+            <BlogCard
+              id={post.id}
+              key={post.id}
+              image={post.image}
+              category={post.category}
+              title={post.title}
+              description={post.description}
+              author={post.author}
+              date={post.date}
+            />
+          ))}
+        </article>
 
-      {viewMore && (
-        <div className="text-center mt-8">
-          <button
-            onClick={handleViewMore}
-            className="hover:text-muted-foreground font-medium underline"
-          >
-            {isLoading ? "Loading..." : "View more"}
-          </button>
-        </div>
-      )}
-    </section>
-  </div>
+        {viewMore && (
+          <div className="text-center mt-8">
+            <button
+              onClick={handleViewMore}
+              className="hover:text-muted-foreground font-medium underline"
+            >
+              {isLoading ? "Loading..." : "View more"}
+            </button>
+          </div>
+        )}
+      </section>
+    </div>
   );
 }
 
