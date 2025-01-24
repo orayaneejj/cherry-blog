@@ -1,5 +1,5 @@
-import { NavBar } from "@/components/NavBar";
-import { Footer } from "@/components/Footer";
+import { NavBar } from "@/components/page-section/NavBar";
+import { Footer } from "@/components/page-section/Footer";
 import { HeroSection } from "@/components/HeroSection";
 import ArticlesSection from "@/components/ArticlesSection";
 function LandingPage() {
